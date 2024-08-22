@@ -3,15 +3,15 @@ import locationIcon from "./img/location.svg";
 import resourceIcon from "./img/resource.svg";
 
 export default function ResourceList() {
-    const [selectedLocation, setSelectedLocation] = useState("");
+    const [selectedBorough, setselectedBorough] = useState("");
     const [selectedResource, setSelectedResource] = useState("");
 
     const handleSearch = async () => {
-        if (!selectedLocation || !selectedResource) {
+        if (!selectedBorough || !selectedResource) {
             alert("Please select a location and resource type");
             return;
         }
-        console.log(selectedLocation);
+        console.log(selectedBorough);
         try {
             const response = await fetch('http://localhost:5000/api/resource-details', {
                 method: 'POST',
@@ -19,8 +19,8 @@ export default function ResourceList() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    location: selectedLocation,
-                    resourceType: selectedResource,
+                    boroughs: selectedBorough,
+                    type: selectedResource,
                 }),
             });
             if (!response.ok) {
@@ -45,8 +45,8 @@ export default function ResourceList() {
                 <select 
                     className="bg-gray-300 rounded-md border-2 p-1 border-black w-40"
                     id="location-filter"
-                    value={selectedLocation}
-                    onChange={(e) => setSelectedLocation(e.target.value)}
+                    value={selectedBorough}
+                    onChange={(e) => setselectedBorough(e.target.value)}
                 >
                     <option value="">Location</option>
                     <option value="Queens">Queens</option>
