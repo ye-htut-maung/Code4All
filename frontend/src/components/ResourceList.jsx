@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DisplayDataBar from "./DisplayDataBar";
 import locationIcon from "./img/location.svg";
 import resourceIcon from "./img/resource.svg";
 
@@ -36,7 +37,7 @@ export default function ResourceList() {
     };
 
     return (
-        <div className="flex-col">
+        <div className="flex-col mt-8 mb-8">
             <h1 className="text-center h-100 text-4xl font-bold justify-center text-blue-900">Find Your Resources</h1>
             <div className="mt-6 bg-gray-300 p-4 items-center justify-between flex rounded-md mx-auto max-w-2xl border-black border-2">
                 <label htmlFor="filter" className="block font-bold text-black pl-2">Filter:</label>
@@ -71,6 +72,7 @@ export default function ResourceList() {
                 </select>
 
                 <button className="text-blue-900 font-bold pr-2" onClick={handleSearch}>Search</button>
+
             </div>
         </div>
     );
