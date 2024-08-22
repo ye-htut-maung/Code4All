@@ -4,6 +4,7 @@ import LandingView from "./components/LandingView";
 import NavBar from "./components/NavBar";
 import ResourceList from "./components/ResourceList"
 import DisplayDataBar from "./components/DisplayDataBar"
+import Login from "./components/Login"
 
 function App() {
     const [data, setData] = useState([]);
@@ -32,7 +33,8 @@ function App() {
             <LandingView />
             <ResourceList/>
             <DisplayDataBar/>
-            <NavBar title="Login"/>
+            <NavBar title="Login / Sign Up"but1="Home" but2="About"/>
+            <Login />
         </>
     );
 }
