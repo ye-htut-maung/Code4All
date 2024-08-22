@@ -37,3 +37,27 @@ VALUES
  'Operates every night starting at 5:30 PM at St. Barts, 51St. St. between Park and Lex. Vans operate in Uptown and Downtown Manhattan and in the Bronx', 
  'https://www.coalitionforthehomeless.org/resources/coalition-homeless-grand-central-food-program/', 
  'Manhattan');
+
+CREATE TABLE consultation (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    location TEXT NOT NULL,
+    contact TEXT NOT NULL,
+    hours TEXT NOT NULL,
+    note TEXT,
+    links TEXT,
+    boroughs TEXT
+);
+INSERT INTO consultation (name, location, contact, hours, note, links, boroughs)
+VALUES 
+('Baruch College Health Services', '138 E. 26th Street, 1st Fl. New York, NY 10010', 
+ 'StudentHealthCareCenter@baruch.cuny.edu', 'Mon-Fri 8am-6pm', 
+ 'Appointment is necessary to be seen.', 
+ 'https://studentaffairs.baruch.cuny.edu/health/', 
+ 'Manhattan'),
+
+('The Brooklyn College Health Clinic', '2900 Bedford Avenue, 114 Roosevelt Hall, Brooklyn, NY 11210', 
+ '718-951-5580', 'Mon-Fri 9am-5pm', 
+ 'The Health Clinic typically remains open throughout reading and exam periods and between semesters', 
+ 'https://studentaffairs.baruch.cuny.edu/health/', 
+ 'Brooklyn');
