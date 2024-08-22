@@ -3,6 +3,7 @@ import "./App.css";
 import LandingView from "./components/LandingView";
 import NavBar from "./components/NavBar";
 import ResourceList from "./components/ResourceList"
+import DisplayDataBar from "./components/DisplayDataBar"
 
 function App() {
     const [data, setData] = useState([]);
@@ -30,6 +31,7 @@ function App() {
             <NavBar />
             <LandingView />
             <ResourceList/>
+            <DisplayDataBar/>
         </>
     );
 }
