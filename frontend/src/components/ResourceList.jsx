@@ -1,6 +1,6 @@
-import locationIcon from "./img/location.svg"
-import resourceIcon from "./img/resource.svg"
-import react, { useState } from "react";
+import React, { useState } from "react";
+import locationIcon from "./img/location.svg";
+import resourceIcon from "./img/resource.svg";
 
 export default function ResourceList() {
     const [selectedLocation, setSelectedLocation] = useState("");
@@ -11,8 +11,9 @@ export default function ResourceList() {
             alert("Please select a location and resource type");
             return;
         }
+        console.log(selectedLocation);
         try {
-            const response = await fetch('api/resource-details', {
+            const response = await fetch('http://localhost:5000/api/resource-details', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,13 +41,14 @@ export default function ResourceList() {
             <div className="mt-6 bg-gray-300 p-4 items-center justify-between flex rounded-md mx-auto max-w-2xl border-black border-2">
                 <label htmlFor="filter" className="block font-bold text-black pl-2">Filter:</label>
 
-                <img src={locationIcon} className="h-6 ml-10" alt="Location Icon"></img>
-                <select className="bg-gray-300 rounded-md border-2 p-1 border-black w-40"
+                <img src={locationIcon} className="h-6 ml-10" alt="Location Icon" />
+                <select 
+                    className="bg-gray-300 rounded-md border-2 p-1 border-black w-40"
                     id="location-filter"
                     value={selectedLocation}
-                    onChange={(e) => setSelectedLocation(e, target.e.value)}
+                    onChange={(e) => setSelectedLocation(e.target.value)}
                 >
-                    <option value="" disabled>Location</option>
+                    <option value="">Location</option>
                     <option value="Queens">Queens</option>
                     <option value="Manhattan">Manhattan</option>
                     <option value="Brooklyn">Brooklyn</option>
@@ -54,13 +56,14 @@ export default function ResourceList() {
                     <option value="Bronx">Bronx</option>
                 </select>
 
-                <img src={resourceIcon} className="h-7 ml-12" alt="Resource Icon"></img>
-                <select className="bg-gray-300 rounded-md border-2 p-1 border-black w-40"
+                <img src={resourceIcon} className="h-7 ml-12" alt="Resource Icon" />
+                <select 
+                    className="bg-gray-300 rounded-md border-2 p-1 border-black w-40"
                     id="resource-filter"
                     value={selectedResource}
-                    onChange={(e) => setSelectedResource(e, target.e.value)}
+                    onChange={(e) => setSelectedResource(e.target.value)}
                 >
-                    <option value="" disabled selected>Resource Type</option>
+                    <option value="">Resource Type</option>
                     <option value="Housing">Housing</option>
                     <option value="Food">Food</option>
                     <option value="Mental Health">Mental Health</option>
@@ -68,8 +71,7 @@ export default function ResourceList() {
                 </select>
 
                 <button className="text-blue-900 font-bold pr-2" onClick={handleSearch}>Search</button>
-
             </div>
         </div>
     );
-};
+}
