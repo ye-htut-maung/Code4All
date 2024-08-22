@@ -1,4 +1,4 @@
-import cunyLogo from "./img/cunyLogo.jpg"
+//import cunyLogo from "./img/cunyLogo.jpg"
 export default function NavBar(){
 
     return <nav className="p-4">

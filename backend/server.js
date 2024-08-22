@@ -2,6 +2,9 @@ require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const { Pool} = require('pg');
 const app = express();
+const cors = require('cors');
+
+app.use(cors());
 
 const port = 5000;
 
@@ -39,6 +42,49 @@ app.get('/api/housing', async (req, res) => {
 app.get('/api/consultation', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM consultation');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err.stack);
+        res.status(500).send('Error fetching data');
+    }
+});
+
+app.post('/api/resource-details', async (req, res) => {
+    const { boroughs, type } = req.body;
+    console.log(boroughs);
+    console.log(type);
+
+    if (!boroughs || !type) {
+        return res.status(400).send('Both boroughs and type are required');
+    }
+
+    try {
+        let query = '';
+        let params = [];
+
+        switch (type.toLowerCase()) {
+            case 'food':
+                query = 'SELECT * FROM food WHERE boroughs = $1';
+                params = [boroughs];
+                break;
+            case 'housing':
+                query = 'SELECT * FROM housing WHERE boroughs = $1';
+                params = [boroughs];
+                break;
+            case 'consultation':
+                query = 'SELECT * FROM consultation WHERE boroughs = $1';
+                params = [boroughs];
+                break;
+            default:
+                return res.status(400).send('Invalid type');
+        }
+        
+        
+
+        const result = await pool.query(query, params);
+
+        console.log(result.rows);
+
         res.json(result.rows);
     } catch (err) {
         console.error(err.stack);
