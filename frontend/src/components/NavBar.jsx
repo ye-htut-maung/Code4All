@@ -4,7 +4,7 @@ export default function NavBar(){
     return <nav className="p-4">
         <div className="container flex mt-8 font-bold items-center justify-between h-16 mx-auto max-w-7xl text-blue-900">
             <div className="flex-none">
-                <img src={cunyLogo} class="w-32"></img>
+                <img src={cunyLogo} className="w-32"></img>
             </div>
             <div className="flex items-center flex-1 justify-center">
                 <span className="ml-[80px] text-4xl">Student Resources</span>
