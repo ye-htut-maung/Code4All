@@ -17,26 +17,58 @@ const pool = new Pool({
 app.use(cors());
 app.use(express.json());
 
-// endpoints for all 3 categories
 
-// app.post('/api/resource-details', async (req, res) => {
-//   try {
-//     const { location, resourceType } = req.body;
-//     console.log(location, resourceType);
 
-//   //   const result = await pool.query('SELECT * FROM resources WHERE id = $1', [resourceId]);
-//   //   if (result.rows.length > 0) {
-//   //     res.json(result.rows[0]);
-//   //   } else {
-//   //     res.status(404).json({ error: 'Resource not found' });
-//   //   }
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: 'An error occurred while fetching resource details' });
-//   }
-// });
+app.post('/api/register', async (req, res) => {
+    const { username } = req.body;
 
-app.get("/api/food", async (req, res) => {
+    if (!username) {
+        return res.status(400).json({ error: 'Username is required' });
+    }
+
+    try {
+        const userExists = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+
+        if (userExists.rows.length > 0) {
+            return res.status(400).json({ error: 'Username already exists' });
+        }
+
+        await pool.query('INSERT INTO users (username) VALUES ($1)', [username]);
+
+        res.status(201).json({ message: 'User registered successfully' });
+
+    } catch (err) {
+        console.error(err.stack);
+        res.status(500).json({ error: 'Error registering user' });
+    }
+});
+
+app.post('/api/login', async (req, res) => {
+    const { username } = req.body;
+
+    if (!username) {
+        return res.status(400).json({ error: 'Username is required' });
+    }
+
+    try {
+        const user = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+
+        if (user.rows.length === 0) {
+            return res.status(400).json({ error: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Logged in sucessfully' });
+
+    } catch (err) {
+        console.error(err.stack);
+        res.status(500).json({ error: 'Error logging in user' });
+    }
+});
+
+
+
+// endpoints for all 3 categorie
+app.get('/api/food', async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM food");
         res.json(result.rows);
