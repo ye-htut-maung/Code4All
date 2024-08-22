@@ -1,6 +1,7 @@
 require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const { Pool} = require('pg');
+const cors = require('cors');
 const app = express();
 
 const port = 5000;
@@ -13,13 +14,16 @@ const pool = new Pool({
     port: process.env.DB_PORT,
 });
 
+app.use(cors());
 app.use(express.json());
 
 // endpoints for all 3 categories
 
 app.post('/api/resource-details', async (req, res) => {
   try {
-    const { resourceId } = req.body;
+    const { location, resourceType } = req.body;
+    console.log(location, resourceType);
+    
     
   //   const result = await pool.query('SELECT * FROM resources WHERE id = $1', [resourceId]);
   //   if (result.rows.length > 0) {
