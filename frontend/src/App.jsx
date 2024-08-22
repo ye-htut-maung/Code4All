@@ -32,6 +32,7 @@ function App() {
             <LandingView />
             <ResourceList/>
             <DisplayDataBar/>
+            <NavBar title="Login"/>
         </>
     );
 }
