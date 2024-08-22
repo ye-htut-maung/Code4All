@@ -1,5 +1,5 @@
 import cunyLogo from "./img/cunyLogo.jpg"
-export default function NavBar(){
+export default function NavBar() {
 
     return <nav className="p-4">
         <div className="container flex mt-8 font-bold items-center justify-between h-16 mx-auto max-w-7xl text-blue-900">

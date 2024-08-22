@@ -6,6 +6,8 @@ import resourceIcon from "./img/resource.svg";
 export default function ResourceList() {
     const [selectedBorough, setselectedBorough] = useState("");
     const [selectedResource, setSelectedResource] = useState("");
+    const [data, setData] = useState([]);
+    const [hasSearched, setHasSearched] = useState(false);
 
     const handleSearch = async () => {
         if (!selectedBorough || !selectedResource) {
@@ -28,11 +30,14 @@ export default function ResourceList() {
                 throw new Error(`An error occurred with network response: ${response.status}`);
             }
             const data = await response.json();
+            setData(data);
+            setHasSearched(true);
             console.log("search results:", data);
         }
         catch (err) {
             console.error(err);
             alert("An error occurred while fetching resource details");
+            setHasSearched(true);
         }
     };
 
@@ -43,7 +48,7 @@ export default function ResourceList() {
                 <label htmlFor="filter" className="block font-bold text-black pl-2">Filter:</label>
 
                 <img src={locationIcon} className="h-6 ml-10" alt="Location Icon" />
-                <select 
+                <select
                     className="bg-gray-300 rounded-md border-2 p-1 border-black w-40"
                     id="location-filter"
                     value={selectedBorough}
@@ -58,21 +63,36 @@ export default function ResourceList() {
                 </select>
 
                 <img src={resourceIcon} className="h-7 ml-12" alt="Resource Icon" />
-                <select 
+                <select
                     className="bg-gray-300 rounded-md border-2 p-1 border-black w-40"
                     id="resource-filter"
                     value={selectedResource}
                     onChange={(e) => setSelectedResource(e.target.value)}
                 >
                     <option value="">Resource Type</option>
-                    <option value="Housing">Housing</option>
-                    <option value="Food">Food</option>
-                    <option value="Mental Health">Mental Health</option>
-                    <option value="Child Care">Child Care</option>
+                    <option value="housing">Housing</option>
+                    <option value="food">Food</option>
+                    <option value="consultation">Consultation</option>
                 </select>
 
                 <button className="text-blue-900 font-bold pr-2" onClick={handleSearch}>Search</button>
-
+            </div>
+            <div>
+                {hasSearched && data.length === 0 && (
+                    <p className="text-center mt-4">No results found. Please try a different search.</p>
+                )}
+                {data.map((row) => (
+                    <DisplayDataBar
+                        key={row.id}
+                        name={row.name}
+                        location={row.location}
+                        contact={row.contact}
+                        hours={row.hours}
+                        note={row.note} 
+                        links={row.links}
+                        boroughs={row.boroughs}
+                    />
+                ))}
             </div>
         </div>
     );

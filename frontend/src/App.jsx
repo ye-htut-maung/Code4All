@@ -30,8 +30,7 @@ function App() {
         <>
             <NavBar />
             <LandingView />
-            <ResourceList/>
-            <DisplayDataBar/>
+            <ResourceList />
         </>
     );
 }
