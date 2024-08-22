@@ -98,12 +98,10 @@ app.post('/api/resource-details', async (req, res) => {
         }
         
         
-
         const result = await pool.query(query, params);
-
+        res.json(result.rows);
         console.log(result.rows);
 
-        res.json(result.rows);
     } catch (err) {
         console.error(err.stack);
         res.status(500).send('Error fetching data');
