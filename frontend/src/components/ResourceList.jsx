@@ -16,7 +16,7 @@ export default function ResourceList() {
         }
         console.log(selectedBorough);
         try {
-            const response = await fetch('http://localhost:5000/api/resource-details', {
+            const response = await fetch('http://localhost:3000/api/resource-details', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
