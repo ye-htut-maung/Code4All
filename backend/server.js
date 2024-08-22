@@ -1,28 +1,74 @@
+require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const { Pool} = require('pg');
-const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 
+const port = 5000;
 
-const port = 3000;
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+});
 
+app.use(cors());
+app.use(express.json());
+
+// endpoints for all 3 categories
 
 app.post('/api/resource-details', async (req, res) => {
+  try {
+    const { location, resourceType } = req.body;
+    console.log(location, resourceType);
+    
+    
+  //   const result = await pool.query('SELECT * FROM resources WHERE id = $1', [resourceId]);
+  //   if (result.rows.length > 0) {
+  //     res.json(result.rows[0]);
+  //   } else {
+  //     res.status(404).json({ error: 'Resource not found' });
+  //   }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while fetching resource details' });
+  }
+});
+
+app.get('/api/food', async (req, res) => {
     try {
-      const { resourceId } = req.body;
-      
-    //   const result = await pool.query('SELECT * FROM resources WHERE id = $1', [resourceId]);
-    //   if (result.rows.length > 0) {
-    //     res.json(result.rows[0]);
-    //   } else {
-    //     res.status(404).json({ error: 'Resource not found' });
-    //   }
+        const result = await pool.query('SELECT * FROM food');
+        res.json(result.rows);
     } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'An error occurred while fetching resource details' });
+        console.error(err.stack);
+        res.status(500).send('Error fetching data');
     }
-  });
+});
+
+app.get('/api/housing', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM housing');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err.stack);
+        res.status(500).send('Error fetching data');
+    }
+});
+
+app.get('/api/consultation', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM consultation');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err.stack);
+        res.status(500).send('Error fetching data');
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
-  });
+});
+
+  
