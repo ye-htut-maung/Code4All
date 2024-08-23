@@ -5,7 +5,7 @@ import Login from "./Login";
 import { useState } from "react";
 import Footer from "../components/Footer";
 
-export default function Home({ isAuthenticated }) {
+export default function Home({ isAuthenticated, userId }) {
   return (
     <>
       {!isAuthenticated && (
@@ -14,7 +14,7 @@ export default function Home({ isAuthenticated }) {
       {isAuthenticated && (
         <NavBar title="Student Resources" but1="About" but2="My Profile" />
       )}
-      <LandingView />
+      <LandingView userId={userId} />
       <ResourceList />
       <Footer />
       {/* {!isAuthenticated && (

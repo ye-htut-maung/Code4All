@@ -7,11 +7,16 @@ export default function ReferralComponent({ userId }) {
 
     useEffect(() => {
         fetchUserReferralCode();
-    }, [userId]);
+    }, [userId, userReferralCode]);
 
     const fetchUserReferralCode = async () => {
         try {
+            console.log(userId, "userid in fetchUserReferralCode");
+            if (!userId){
+                return; 
+            }
             const response = await fetch(`http://localhost:3000/api/user-referral-code/${userId}`);
+            console.log('response: ', response);
             if (response.ok) {
                 const data = await response.json();
                 setUserReferralCode(data.referralCode);
@@ -55,7 +60,7 @@ export default function ReferralComponent({ userId }) {
             <div className="mb-6">
                 <h3 className="text-lg font-semibold mb-2">Your Referral Code</h3>
                 <div className="bg-gray-100 p-3 rounded">
-                    <code className="text-lg">{userReferralCode || 'Loading...'}</code>
+                    <code className="text-lg">{userReferralCode || "Loading..."}</code>
                 </div>
             </div>
 

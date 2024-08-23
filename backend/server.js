@@ -28,6 +28,7 @@ async function getUniqueReferralCode() {
     while (!isUnique) {
         referralCode = generateReferralCode();
         const result = await pool.query('SELECT * FROM users WHERE referral_code = $1', [referralCode]);
+        console.log("in getUniqueReferralCode", result.rows);
         if (result.rows.length === 0) {
             isUnique = true;
         }
@@ -50,10 +51,15 @@ app.post('/api/register', async (req, res) => {
         }
 
         const referralCode = await getUniqueReferralCode();
+        console.log('Generated referral code:', referralCode);
 
-        await pool.query('INSERT INTO users (username, referral_code) VALUES ($1, $2)', [username, referralCode]);
-
-        res.status(201).json({ message: 'User registered successfully', referralCode });
+         const insertResult = await pool.query(
+            'INSERT INTO users (username, referral_code) VALUES ($1, $2) RETURNING *',
+            [username, referralCode]
+        );
+        console.log('Insert result:', insertResult.rows[0]);
+        const user = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+        res.status(201).json(user.rows[0].id);
 
     } catch (err) {
         console.error(err.stack);

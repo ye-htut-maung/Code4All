@@ -11,14 +11,18 @@ import Home from "./pages/Home";
 function App() {
   // track authentication state to show/hide login component
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userId, setUserId] = useState(null);
 
+  const handleUserId = (id) => {
+    setUserId(id);
+  };
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
+        <Route path="/" element={<Home isAuthenticated={isAuthenticated} userId={userId}/>} />
         <Route
           path="/login"
-          element={<Login onAuthenticate={() => setIsAuthenticated(true)} />}
+          element={<Login onAuthenticate={() => setIsAuthenticated(true)} handleUserId={(id) => handleUserId(id)} />}
         />
       </Routes>
     </Router>
