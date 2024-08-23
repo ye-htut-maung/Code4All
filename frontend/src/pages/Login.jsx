@@ -2,7 +2,7 @@ import { useState } from "react";
 import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
 
-// using onAuthenticate prop now
+
 export default function Login({ onAuthenticate }) {
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
@@ -24,7 +24,6 @@ export default function Login({ onAuthenticate }) {
 
       if (response.ok) {
         console.log("Register successful");
-        // notifying parent component after registration is done correctly
         onAuthenticate();
         navigate("/");
       } else {
@@ -54,6 +53,7 @@ export default function Login({ onAuthenticate }) {
 
       if (response.ok) {
         console.log("Login successful");
+        const userId = await response.json();
         onAuthenticate();
         navigate("/");
       } else {
