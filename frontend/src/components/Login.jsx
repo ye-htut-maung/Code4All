@@ -21,6 +21,7 @@ export default function Login({ onAuthenticate }) {
       });
 
       if (response.ok) {
+        console.log("Register successful");
         // notifying parent component after registration is done correctly
         onAuthenticate();
       } else {
@@ -30,6 +31,34 @@ export default function Login({ onAuthenticate }) {
     } catch (error) {
       console.error("Error registering user:", error);
       alert("Error registering user");
+    }
+  };
+
+  const handleLogin = async () => {
+    if (!username) {
+      alert("Username is required");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username }),
+      });
+
+      if (response.ok) {
+        console.log("Login successful");
+        onAuthenticate();
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || "Login failed");
+      }
+    } catch (error) {
+      console.error("Error logging in user:", error);
+      alert("Error logging in user");
     }
   };
 
@@ -56,7 +85,7 @@ export default function Login({ onAuthenticate }) {
         </div>
         <div className="flex gap-3">
           <div className="text-blue-900 bg-white font-bold p-2 rounded-md justify-around text-center">
-            <button>Login</button>
+            <button onClick={handleLogin}>Login</button>
           </div>
           <div className="text-blue-900 bg-white font-bold p-2 rounded-md justify-around text-center">
             <button onClick={handleSignUp}>Sign Up</button>
