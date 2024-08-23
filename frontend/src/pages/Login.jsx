@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
 
 
-export default function Login({ onAuthenticate }) {
+export default function Login({ onAuthenticate, handleUserId }) {
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
@@ -24,7 +24,9 @@ export default function Login({ onAuthenticate }) {
 
       if (response.ok) {
         console.log("Register successful");
+        const userId = await response.json();
         onAuthenticate();
+        handleUserId(userId);
         navigate("/");
       } else {
         const errorData = await response.json();
@@ -55,6 +57,7 @@ export default function Login({ onAuthenticate }) {
         console.log("Login successful");
         const userId = await response.json();
         onAuthenticate();
+        handleUserId(userId);
         navigate("/");
       } else {
         const errorData = await response.json();
