@@ -1,8 +1,8 @@
-# CUNY 4 All
+# Resources For All
 
 ## Introduction
 
-CUNY 4 All is a centralized platform that addresses the issue of the lack of awareness for CUNY student resources.
+Resources For All is a centralized platform that addresses the issue of the lack of awareness for CUNY student resources.
 
 Many students miss out on valuable information and resources available at their schools because they are unaware of them. CUNY offers a wealth of support services, such as mental health resources, food pantries, and housing, yet these resources remain underutilized. As a result, students may struggle with challenges that could be mitigated by the support their schools provide, leading to missed opportunities for personal and academic growth.
 
