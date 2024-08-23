@@ -3,9 +3,11 @@ import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 
 const libraries = ["places"];
 
+const googlemapsapi = import.meta.env.VITE_GOOGLE_MAPS_API;
+
 const MapView = ({ locations }) => {
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyAakM6A13Afvd1PUpnG15clYb36fASJdvw",
+        googleMapsApiKey: googlemapsapi,
         libraries,
     });
 

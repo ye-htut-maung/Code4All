@@ -5,13 +5,14 @@ import resourceIcon from "./img/resource.svg";
 import axios from 'axios';
 import MapView from "./MapView";
 
+const geocoderapi = import.meta.env.VITE_GEOCODER_API;
 
 const geocodeAddress = async (address) => {
     try {
       const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json`, {
         params: {
           address,
-          key: "AIzaSyBhb5wxwFA0FTCf9OCFYfqrq-OoAmkLZeM"
+          key: geocoderapi
         }
       });
       if (response.data.results.length > 0) {
