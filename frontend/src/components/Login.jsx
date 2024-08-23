@@ -1,4 +1,38 @@
-export default function Login() {
+import { useState } from "react";
+
+// using onAuthenticate prop now
+export default function Login({ onAuthenticate }) {
+
+  const [username, setUsername] = useState("");
+
+  const handleSignUp = async () => {
+    if (!username) {
+      alert("Username is required");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username }),
+      });
+
+      if (response.ok) {
+        // notifying parent component after registration is done correctly
+        onAuthenticate();
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || "Registration failed");
+      }
+    } catch (error) {
+      console.error("Error registering user:", error);
+      alert("Error registering user");
+    }
+  };
+
   return (
     <div className="relative h-[85vh] bg-primary flex flex-row items-center justify-center">
       <div className="text-center border-4 border border-black rounded-md overflow-hidden bg-white h-[65%] w-[40%] p-4 flex flex-col justify-around items-center">
@@ -7,6 +41,8 @@ export default function Login() {
             className="w-[70%] rounded-md p-2 bg-gray-300 text-black placeholder-black"
             type="text"
             placeholder="Enter email address..."
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)} 
             required
           ></input>
         </div>
@@ -23,7 +59,7 @@ export default function Login() {
             <button>Login</button>
           </div>
           <div className="text-blue-900 bg-white font-bold p-2 rounded-md justify-around text-center">
-            <button>Sign Up</button>
+            <button onClick={handleSignUp}>Sign Up</button>
           </div>
         </div>
       </div>

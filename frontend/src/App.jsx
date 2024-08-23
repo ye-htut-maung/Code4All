@@ -7,16 +7,19 @@ import DisplayDataBar from "./components/DisplayDataBar";
 import Login from "./components/Login";
 
 function App() {
-  const [data, setData] = useState([]);
+  // track authentication state to show/hide login component
+  const [isAuthenticated, setIsAuthenticated] = useState(false); 
+  
+  /*const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
-  useEffect(() => {
+  
+  /*useEffect(() => {
     const api = import.meta.env.VITE_API;
     fetch(`${api}/`)
       .then(async (res) => {
         if (res.ok) {
-          setData(await res.join());
+          setData(await res.json()); // fixed join() to json()
           setLoading(false);
         } else {
           setError(true);
@@ -25,15 +28,16 @@ function App() {
       .catch(() => {
         setError(true);
       });
-  }, []);
+  }, []);*/
 
   return (
     <>
       <NavBar />
       <LandingView />
       <ResourceList />
-      <NavBar title="Login / Sign Up" but1="Home" but2="About" />
-      <Login />
+      {!isAuthenticated && (
+        <Login onAuthenticate={() => setIsAuthenticated(true)} />
+      )}
     </>
   );
 }
