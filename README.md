@@ -22,7 +22,7 @@ Students are able to filter through our database of resource centers based off w
 
 ### Referral System
 
-Apart from students being able to find centers that meet their essential needs, we also have a referral system in place to promote outreach. Users are able to create an account and share their unique referral code to their peers. Each time their referral code gets entered into our database, they are awarded with points that in the end will reward them.
+Apart from students being able to find centers that meet their essential needs, we also have a referral system in place to promote outreach. Users are able to create an account and share their unique referral code to their peers. Our system allows CUNY to provide incentives for students so that they are more likely to share with their peers about CUNY resources, thereby promoting outreach.
 
 ## Our Tech Stack
 
