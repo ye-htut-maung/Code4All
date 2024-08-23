@@ -19,7 +19,7 @@ function App() {
     fetch(`${api}/`)
       .then(async (res) => {
         if (res.ok) {
-          setData(await res.json()); // fixed join() to json()
+          setData(await res.json());
           setLoading(false);
         } else {
           setError(true);
@@ -36,7 +36,10 @@ function App() {
       <LandingView />
       <ResourceList />
       {!isAuthenticated && (
-        <Login onAuthenticate={() => setIsAuthenticated(true)} />
+        <div >
+          <NavBar title="Login / Sign Up" but1="Home" but2="About" />
+          <Login onAuthenticate={() => setIsAuthenticated(true)} />
+        </div>
       )}
     </>
   );
