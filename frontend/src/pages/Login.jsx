@@ -1,9 +1,11 @@
 import { useState } from "react";
+import NavBar from "../components/NavBar";
+import { useNavigate } from "react-router-dom";
 
 // using onAuthenticate prop now
 export default function Login({ onAuthenticate }) {
-
   const [username, setUsername] = useState("");
+  const navigate = useNavigate();
 
   const handleSignUp = async () => {
     if (!username) {
@@ -24,6 +26,7 @@ export default function Login({ onAuthenticate }) {
         console.log("Register successful");
         // notifying parent component after registration is done correctly
         onAuthenticate();
+        navigate("/");
       } else {
         const errorData = await response.json();
         alert(errorData.error || "Registration failed");
@@ -52,6 +55,7 @@ export default function Login({ onAuthenticate }) {
       if (response.ok) {
         console.log("Login successful");
         onAuthenticate();
+        navigate("/");
       } else {
         const errorData = await response.json();
         alert(errorData.error || "Login failed");
@@ -63,35 +67,38 @@ export default function Login({ onAuthenticate }) {
   };
 
   return (
-    <div className="relative h-[85vh] bg-primary flex flex-row items-center justify-center">
-      <div className="text-center border-4 border border-black rounded-md overflow-hidden bg-white h-[65%] w-[40%] p-4 flex flex-col justify-around items-center">
-        <div className="w-full flex flex-col items-center">
-          <input
-            className="w-[70%] rounded-md p-2 bg-gray-300 text-black placeholder-black"
-            type="text"
-            placeholder="Enter email address..."
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
-            required
-          ></input>
-        </div>
-        <div className="w-full flex flex-col items-center">
-          <input
-            className="w-[70%] rounded-md p-2 bg-gray-300 text-black placeholder-black"
-            type="text"
-            placeholder="Enter password..."
-            required
-          ></input>
-        </div>
-        <div className="flex gap-3">
-          <div className="text-blue-900 bg-white font-bold p-2 rounded-md justify-around text-center">
-            <button onClick={handleLogin}>Login</button>
+    <>
+      <NavBar title="Login / Sign Up" but1="Home" but2="About" />
+      <div className="relative h-[85vh] bg-primary flex flex-row items-center justify-center">
+        <div className="text-center border-4 border border-black rounded-md overflow-hidden bg-white h-[65%] w-[40%] p-4 flex flex-col justify-around items-center">
+          <div className="w-full flex flex-col items-center">
+            <input
+              className="w-[70%] rounded-md p-2 bg-gray-300 text-black placeholder-black"
+              type="text"
+              placeholder="Enter email address..."
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            ></input>
           </div>
-          <div className="text-blue-900 bg-white font-bold p-2 rounded-md justify-around text-center">
-            <button onClick={handleSignUp}>Sign Up</button>
+          <div className="w-full flex flex-col items-center">
+            <input
+              className="w-[70%] rounded-md p-2 bg-gray-300 text-black placeholder-black"
+              type="text"
+              placeholder="Enter password..."
+              required
+            ></input>
+          </div>
+          <div className="flex gap-3">
+            <div className="text-blue-900 bg-white font-bold p-2 rounded-md justify-around text-center">
+              <button onClick={handleLogin}>Login</button>
+            </div>
+            <div className="text-blue-900 bg-white font-bold p-2 rounded-md justify-around text-center">
+              <button onClick={handleSignUp}>Sign Up</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -4,44 +4,24 @@ import LandingView from "./components/LandingView";
 import NavBar from "./components/NavBar";
 import ResourceList from "./components/ResourceList";
 import DisplayDataBar from "./components/DisplayDataBar";
-import Login from "./components/Login";
+import Login from "./pages/Login";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
 
 function App() {
   // track authentication state to show/hide login component
-  const [isAuthenticated, setIsAuthenticated] = useState(false); 
-  
-  /*const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  
-  /*useEffect(() => {
-    const api = import.meta.env.VITE_API;
-    fetch(`${api}/`)
-      .then(async (res) => {
-        if (res.ok) {
-          setData(await res.json());
-          setLoading(false);
-        } else {
-          setError(true);
-        }
-      })
-      .catch(() => {
-        setError(true);
-      });
-  }, []);*/
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
-    <>
-      <NavBar />
-      <LandingView />
-      <ResourceList />
-      {!isAuthenticated && (
-        <div >
-          <NavBar title="Login / Sign Up" but1="Home" but2="About" />
-          <Login onAuthenticate={() => setIsAuthenticated(true)} />
-        </div>
-      )}
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
+        <Route
+          path="/login"
+          element={<Login onAuthenticate={() => setIsAuthenticated(true)} />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
