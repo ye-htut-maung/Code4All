@@ -61,3 +61,31 @@ VALUES
  'The Health Clinic typically remains open throughout reading and exam periods and between semesters', 
  'https://studentaffairs.baruch.cuny.edu/health/', 
  'Brooklyn');
+
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    referral_code VARCHAR(8) UNIQUE,
+    referred_by INTEGER,
+    CONSTRAINT uppercase_referral_code CHECK (referral_code = UPPER(referral_code)),
+    FOREIGN KEY (referred_by) REFERENCES users(id)
+)
+
+INSERT INTO food (name, location, contact, hours, note, links, boroughs)
+VALUES 
+('Bronx Community College Food Pantry', 
+ '2155 University Ave, Bronx, NY 10453, Access Resource Center office Loew Hall 125', 
+ 'dawn.daniels@bcc.cuny.edu', 
+ 'Mon-Fri 9am-5pm', 
+ 'utilize the Plentiful App to make appointments for the bi-weekly pantry', 
+ 'https://www.bcc.cuny.edu/campus-resources/access-resource-center/food-pantry/', 
+ 'Bronx'),
+ 
+('Lehman College Food Pantry', 
+ '250 Bedford Park Blvd W, Bronx, NY 10468, Student Life Building 120', 
+ 'food.bank@lehman.cuny.edu', 
+ 'Mon-Fri 9am-5pm', 
+ 'Serving Lehman students only, Walk-in service food bank with student ID to swipe in building and display to pantry coordinator', 
+ 'https://www.lehman.edu/student-affairs/basic-needs-center/lehman-food-bank.php', 
+ 'Bronx');
