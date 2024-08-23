@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// using onAuthenticate prop now
+
 export default function Login({ onAuthenticate }) {
 
   const [username, setUsername] = useState("");
@@ -22,7 +22,6 @@ export default function Login({ onAuthenticate }) {
 
       if (response.ok) {
         console.log("Register successful");
-        // notifying parent component after registration is done correctly
         onAuthenticate();
       } else {
         const errorData = await response.json();
@@ -51,6 +50,7 @@ export default function Login({ onAuthenticate }) {
 
       if (response.ok) {
         console.log("Login successful");
+        const userId = await response.json();
         onAuthenticate();
       } else {
         const errorData = await response.json();

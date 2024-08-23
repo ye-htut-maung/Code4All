@@ -3,6 +3,7 @@ const express = require("express");
 const { Pool } = require("pg");
 const cors = require("cors");
 const app = express();
+const crypto = require('crypto');
 
 const port = 3000;
 
@@ -17,7 +18,22 @@ const pool = new Pool({
 app.use(cors());
 app.use(express.json());
 
+function generateReferralCode() {
+    return crypto.randomBytes(4).toString('hex').toUpperCase();
+}
 
+async function getUniqueReferralCode() {
+    let referralCode;
+    let isUnique = false;
+    while (!isUnique) {
+        referralCode = generateReferralCode();
+        const result = await pool.query('SELECT * FROM users WHERE referral_code = $1', [referralCode]);
+        if (result.rows.length === 0) {
+            isUnique = true;
+        }
+    }
+    return referralCode;
+}
 
 app.post('/api/register', async (req, res) => {
     const { username } = req.body;
@@ -33,13 +49,54 @@ app.post('/api/register', async (req, res) => {
             return res.status(400).json({ error: 'Username already exists' });
         }
 
-        await pool.query('INSERT INTO users (username) VALUES ($1)', [username]);
+        const referralCode = await getUniqueReferralCode();
 
-        res.status(201).json({ message: 'User registered successfully' });
+        await pool.query('INSERT INTO users (username, referral_code) VALUES ($1, $2)', [username, referralCode]);
+
+        res.status(201).json({ message: 'User registered successfully', referralCode });
 
     } catch (err) {
         console.error(err.stack);
         res.status(500).json({ error: 'Error registering user' });
+    }
+});
+
+app.get('/api/user-referral-code/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const result = await pool.query('SELECT referral_code FROM users WHERE id = $1', [userId]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ referralCode: result.rows[0].referral_code });
+    } catch (err) {
+        console.error(err.stack);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.post('/api/submit-referral', async (req, res) => {
+    try {
+        const { userId, referralCode } = req.body;
+
+        // Find the user who owns this referral code
+        const referrerResult = await pool.query('SELECT id FROM users WHERE referral_code = $1', [referralCode]);
+
+        if (referrerResult.rows.length === 0) {
+            return res.status(400).json({ error: 'Invalid referral code' });
+        }
+
+        const referrerId = referrerResult.rows[0].id;
+
+        // Update the current user with the referrer's ID
+        await pool.query('UPDATE users SET referred_by = $1 WHERE id = $2', [referrerId, userId]);
+
+        res.json({ message: 'Referral code applied successfully' });
+    } catch (err) {
+        console.error(err.stack);
+        res.status(500).json({ error: 'Server error' });
     }
 });
 
@@ -57,7 +114,7 @@ app.post('/api/login', async (req, res) => {
             return res.status(400).json({ error: 'User not found' });
         }
 
-        res.status(200).json({ message: 'Logged in sucessfully' });
+        res.status(200).json(user.rows[0].id);
 
     } catch (err) {
         console.error(err.stack);
