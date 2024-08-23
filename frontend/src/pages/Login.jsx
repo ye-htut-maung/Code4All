@@ -74,7 +74,7 @@ export default function Login({ onAuthenticate, handleUserId }) {
       <NavBar title="Login / Sign Up" but1="Home" but2="About" />
       <div className="relative h-[75vh] bg-primary flex flex-row items-center justify-center">
         <div className="text-center border-2 border border-black rounded-md overflow-hidden bg-white h-[40%] w-[40%] p-4 flex flex-col justify-around items-center">
-          <div className="w-full flex flex-col items-center">
+          <div className="w-full flex pt-7 flex-col items-center">
             <input
               className="w-[60%] rounded-md p-2 bg-gray-300 text-black placeholder-black"
               type="text"
