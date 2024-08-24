@@ -8,8 +8,6 @@ Many students miss out on valuable information and resources available at their 
 
 Our platform has all the essential and important information in one place, negating the possibility of information being overlooked. It has an organized and intuitive interface, simplifying user navigation and enhancing user experience.
 
-## Demo
-
 ## Implemented Features
 
 ### AI Chatbot
@@ -47,3 +45,6 @@ Apart from students being able to find centers that meet their essential needs, 
 -   Docker
 -   Postman
 -   PGAdmin
+
+## Demo
+[![Alt text](https://img.youtube.com/vi/ELuOwHfuUXE/0.jpg)](https://www.youtube.com/watch?v=ELuOwHfuUXE)
