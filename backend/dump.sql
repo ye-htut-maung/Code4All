@@ -70,7 +70,7 @@ CREATE TABLE users (
     referred_by INTEGER,
     CONSTRAINT uppercase_referral_code CHECK (referral_code = UPPER(referral_code)),
     FOREIGN KEY (referred_by) REFERENCES users(id)
-)
+);
 
 INSERT INTO food (name, location, contact, hours, note, links, boroughs)
 VALUES 
@@ -89,3 +89,64 @@ VALUES
  'Serving Lehman students only, Walk-in service food bank with student ID to swipe in building and display to pantry coordinator', 
  'https://www.lehman.edu/student-affairs/basic-needs-center/lehman-food-bank.php', 
  'Bronx');
+
+
+
+INSERT INTO housing (name, location, contact, hours, note, links, boroughs)
+VALUES 
+ ('Providence House', '703 Lexington Avenue, Brooklyn, NY 11221', 
+ 'info@providencehouse.org', 'Everyday','Must go through intake','https://www.providencehouse.org/','Brooklyn'),
+ ('Restfull Nights Shelter', '106-38 150th St, Jamaica, NY 11435', 
+ 'support@restfullnightscorporation.com', 'Mon-Fri 9am-5pm','Non-profit homeless shelter and social services agency','http://www.restfullnightscorporation.com/','Queens'),
+ ('Franklin Avenue Womens Intake Shelter', '1122 Franklin Avenue Bronx, NY 10456', 
+ 'INFO@CFTHOMELESS.ORG', '24 hours','Intake open 24 hours','https://www.coalitionforthehomeless.org/resources/franklin-avenue-armory-womens-shelter/','Bronx'),
+ ('Project Hospitality', '100 Park Avenue, Staten Island, NY 10302', '718.448.1544', 'Everyday','Must go through intake','https://projecthospitality.org/','Staten Island');
+
+INSERT INTO food (name, location, contact, hours, note, links, boroughs)
+VALUES 
+ ('York College Food Pantry', '94-20 Guy R Brewer Blvd, Jamaica, NY 11451',
+ 'nacevedo@york.cuny.edu', 'Tues & Wed 9am-6:30pm', 
+ 'Student can complete a reservation on the York College website', 
+ 'https://www.york.cuny.edu/student-development/the-food-pantry-is-open--ready-to-serve-you', 'Queens'),
+ ('John Jay Food Pantry', '524 W 59th St, New York, NY 10019',
+ 'jjcfoodpantry@jjay.cuny.edu', 'Mon-Thurs 10am-3:30pm', 
+ 'Must meet eligibility requirements', 
+ 'https://www.jjay.cuny.edu/student-life/wellness-center/food-pantry', 'Manhattan');
+
+INSERT INTO food (name, location, contact, hours, note, links, boroughs)
+VALUES 
+('Lehman College Food Pantry', '250 Bedford Park Blvd W, Bronx, NY 10468, Student Life Building 120', 
+ 'food.bank@lehman.cuny.edu', 'Mon-Fri 9am-5pm', 
+ 'Serving Lehman students only, Walk-in service food bank with student ID to swipe in building and display to pantry coordinator', 
+ 'https://www.lehman.edu/student-affairs/basic-needs-center/lehman-food-bank.php', 'Bronx');
+
+INSERT INTO food (name, location, contact, hours, note, links, boroughs)
+VALUES 
+('Kingsborough Community College Food Pantry', '2001 Oriental Blvd, Brooklyn, NY 11235, CUNY EDGE, T4-216', 
+ 'arc.kcc@kbcc.cuny.edu', 'Mon-Fri 8am-5pm', 
+ 'Walk-in and online', 
+ 'https://www.kbcc.cuny.edu/studres/cunyedge.html', 'Brooklyn');
+
+INSERT INTO food (name, location, contact, hours, note, links, boroughs)
+VALUES 
+('College of Staten Island Food Pantry', '2800 Victory Blvd, Staten Island, NY 10314', 
+ 'studentlife@csi.cuny.edu', 'Wed & Fri 10:30am-1pm', 
+ 'Make an appointment online', 
+ 'https://www.csi.cuny.edu/campus-life/student-services/food-pantry', 'Staten Island'),
+ ('CUNY School of Law Food Pantry', '2 Ct Square W, Long Island City, NY 11101', 'studentaffairsoffice@law.cuny.edu', '24/7', 'Walk-in self serve with student ID to swipe into building and pantry location', 'https://www.law.cuny.edu/students/health-wellness/', 'Queens');
+INSERT INTO consultation (name, location, contact, hours, note, links, boroughs)
+VALUES
+ ('Bronx Community College Personal Counseling', '2155 University Avenue, Bronx, NY 10453, Loew Hall, Room 430', 
+ 'Personal.counseling@bcc.cuny.edu', 'Mon-Fri 9am-5pm', 
+ 'Appointment is necessary to be seen.', 
+ 'https://www.bcc.cuny.edu/campus-resources/personal-counseling-services/', 
+ 'Bronx'),
+ ('College of Staten Island Counseling Center', '2800 Victory Boulevard, Staten Island, NY 10314, Building 1A, Room 109', 
+ 'counseling@csi.cuny.edu', 'Mon-Fri 9am-5pm', 
+ 'Appointment is necessary to be seen.', 
+ 'https://www.csi.cuny.edu/students/counseling-center', 
+ 'Staten Island'),
+('Queens College Counseling Center', '65-30 Kissena Boulevard, Flushing, NY 11367, Frese Hall', 
+ 'CounselingServices@qc.cuny.edu', 'Mon-Fri 9am-5pm', 
+ 'Appointment is necessary to be seen.', 
+ 'https://www.qc.cuny.edu/cs/','Queens');
