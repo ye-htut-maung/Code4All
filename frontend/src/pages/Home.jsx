@@ -9,10 +9,10 @@ export default function Home({ isAuthenticated, userId }) {
   return (
     <>
       {!isAuthenticated && (
-        <NavBar title="Student Resources" but1="About" but2="Login" />
+        <NavBar title="Resources For All" but1="About" but2="Login" />
       )}
       {isAuthenticated && (
-        <NavBar title="Student Resources" but1="About" but2="My Profile" />
+        <NavBar title="Resources For All" but1="About" but2="My Profile" />
       )}
       <LandingView userId={userId} />
       <ResourceList />

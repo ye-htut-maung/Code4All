@@ -87,8 +87,8 @@ export default function ResourceList() {
         }));
 
     return (
-        <div className="flex-col mt-5 w-11/12">
-            <h1 className="text-center h-100 text-4xl font-bold justify-center text-blue-900">Find Your Resources</h1>
+        <div className="pl-32 flex-col mt-5 w-11/12">
+            <h1 className="pl-2 text-center h-100 text-4xl font-bold justify-center text-blue-900">Find Your Resources</h1>
             <div className="flex mt-8 mb-8 justify-between min-h-96">
                 <div className="flex-col mt-8 mb-8 w-2/3">
                     <div className="mt-6 bg-gray-300 p-4 items-center justify-between flex rounded-md mx-auto max-w-2xl border-black border-2">
